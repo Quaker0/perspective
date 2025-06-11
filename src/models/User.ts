@@ -1,4 +1,19 @@
 import { ObjectId } from 'mongodb';
+import { CreateUserBody } from '../schemas/userSchemas';
+
+export interface UserDatabaseObject {
+    _id: ObjectId;
+    name: string;
+    email: string;
+    created: Date;
+}
+
+export interface UserDisplayData {
+    _id: string;
+    name: string;
+    email: string;
+    created: Date;
+}
 
 export default class User {
     private _id: ObjectId;
@@ -8,12 +23,12 @@ export default class User {
 
     private constructor() {}
 
-    static create(name: string, email: string): User {
+    static create(input: CreateUserBody): User {
         const user = new User();
         user._id = new ObjectId();
         user.created = new Date();
-        user.name = name;
-        user.email = email;
+        user.name = input.name;
+        user.email = input.email;
         return user;
     }
 
@@ -26,7 +41,7 @@ export default class User {
         return user;
     }
 
-    toDatabaseObject() {
+    toDatabaseObject(): UserDatabaseObject {
         return {
             _id: this._id,
             name: this.name,
@@ -35,7 +50,7 @@ export default class User {
         };
     }
 
-    toOutput() {
+    toDisplay(): UserDisplayData {
         return {
             _id: this._id.toString(),
             name: this.name,
