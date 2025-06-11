@@ -13,6 +13,7 @@ dotenv.config();
 export const app: Express = express();
 app.use(cors());
 app.use(express.json());
+app.use(requestContext);
 app.options('*', cors());
 
 app.post('/users', validate(createUserSchema), errorWrapper(createUserRoute));

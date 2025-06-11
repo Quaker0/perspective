@@ -8,11 +8,13 @@ type GetUsersRequest = Request<unknown, unknown, unknown, GetUsersQuery>;
 
 export async function createUserRoute(req: CreateUserRequest, res: Response, next: NextFunction) {
     const userInput = req.body;
+    req.context.logger.info('Creating user with input:', userInput);
     await createUser(userInput);
     return res.status(201).json({ status: 'Success' });
 }
 
 export async function getUsersRoute(req: GetUsersRequest, res: Response, next: NextFunction) {
+    req.context.logger.info('Fetching users with query:', req.query);
     const users: UserDisplayData[] = await getUsers(req.query.created);
     return res.status(200).json(users);
 }
