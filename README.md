@@ -40,9 +40,7 @@ Feel free to add or change this project as you like.
 
 I wanted the code to feel simple and easy to understand. I usually prefer writing the logic in vanilla js to avoid being too locked in to a library.
 
-### The Setup
-
-#### Database
+### Database
 
 Nothing was mentioned about how and where the database should exist. Since I wanted to create a more realistic microservice setup where the api doesn't own the database I went with a cloud alternative. This would in the future allow me to scale the api up and down without any problems. In a production environment I would prefer to have a database service separate but in the same local network and not public to the internet. Since this API is the interface outwards.
 
@@ -52,7 +50,7 @@ Since databases are very capable at sorting and we don't want to re-implement th
 
 The database connection is established when the server starts following recommended procedures and closed before shutdown. If we would loose connection there is a built in connect that is done before each call, so that should be handled.
 
-#### API
+### API
 
 The API can already have multiple instances if needed to handle a heavy production load. In the future it could be placed a Redis in front of it to handle the connections towards the multiple instances and handle caching and any locks needed.
 
