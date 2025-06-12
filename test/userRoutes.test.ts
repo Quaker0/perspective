@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import request from 'supertest';
-import { app } from '../src/index';
+import { app } from '../src/app';
 import { insertedId, userInput1, userInput2 } from './testData/userData';
 import User from '../src/models/User';
 
