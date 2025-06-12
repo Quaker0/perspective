@@ -1,13 +1,10 @@
 import cors from 'cors';
-import * as dotenv from 'dotenv';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import errorHandler from './middlewares/errorHandler';
 import { requestContext } from './middlewares/requestContext';
 import { validate } from './middlewares/validator';
 import { createUserRoute, getUsersRoute } from './routes/userRoutes';
 import { createUserSchema, getUsersSchema } from './schemas/userSchemas';
-
-dotenv.config();
 
 export const app: Express = express();
 app.use(cors());

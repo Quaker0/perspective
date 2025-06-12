@@ -21,7 +21,7 @@ Start the server:
 npm start
 ```
 
-Execute tests (needs the server running):
+Execute tests:
 
 ```sh
 npm test
@@ -76,3 +76,10 @@ The place where error handling lacks the most is for the database. Here we might
 The best documentation is clean code. To write very clear class, function, variable and file names.
 
 Adding an API specification would however be recommended. The zod schemas I have added can be used to generate openapi specs, with for example the [zod-to-openapi](https://github.com/asteasolutions/zod-to-openapi) library. Unfortunately since Express doesn't integrate very well with openapi you would have to define the routes yourself, which is error prone but still worth it if you have consumers of the API outside of your direct team.
+
+### Tests
+
+The `userRoutes.test.ts` tests both endpoints for the user routes. The database is mocked so that we can test the entire flow. Here we test the validation as well as the user data is sent correctly the entire way back and forth.
+The environment variables are loaded in the `index.ts` file while the test imports `app.ts` so we also don't have access to the database credentials in the tests.
+
+We also test `User.ts` to make sure that the correct things are saved and picked up from the Database. Since we mock the database client "toDatabaseObject()" would not have been tested otherwise for example. This is also our most central business logic in this project and is very easy to test.

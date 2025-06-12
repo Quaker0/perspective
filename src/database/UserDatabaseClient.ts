@@ -1,8 +1,5 @@
-import * as dotenv from 'dotenv';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import User from '../models/User';
-
-dotenv.config();
 
 export default class UserDatabaseClient {
     private readonly client: MongoClient;

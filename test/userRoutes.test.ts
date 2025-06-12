@@ -51,6 +51,7 @@ describe('Users endpoints', () => {
             expect(user._id).toBeDefined();
             expect(user.created).toBeDefined();
         });
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('POST /users - should fail with extra parameters', async () => {
@@ -62,6 +63,7 @@ describe('Users endpoints', () => {
         expect(response.body.status).toEqual('Failed');
         expect(response.body.error).toEqual("Unrecognized key(s) in object: 'injection'");
         expect(mockCreateUser).not.toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('POST /users - should fail with invalid email', async () => {
@@ -72,6 +74,19 @@ describe('Users endpoints', () => {
         expect(response.status).toBe(400);
         expect(response.body.status).toEqual('Failed');
         expect(mockGetUserDocuments).not.toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
+    });
+
+    test('POST /users - should fail with missing name', async () => {
+        const response = await request(app)
+            .post('/users')
+            .send({ email: 'test@example.com' })
+            .set('Accept', 'application/json');
+        expect(response.status).toBe(400);
+        expect(response.body.status).toEqual('Failed');
+        expect(response.body.error).toEqual('Name is required');
+        expect(mockCreateUser).not.toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('GET /users - should return users ascending', async () => {
@@ -84,6 +99,7 @@ describe('Users endpoints', () => {
         expect(response.body[0]).toEqual({ ...userInput1, _id: userInput1._id.toString() });
         expect(response.body[1]).toEqual({ ...userInput2, _id: userInput2._id.toString() });
         expect(mockGetUserDocuments).toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('GET /users - should return users descending', async () => {
@@ -96,6 +112,7 @@ describe('Users endpoints', () => {
         expect(response.body[0]).toEqual({ ...userInput2, _id: userInput2._id.toString() });
         expect(response.body[1]).toEqual({ ...userInput1, _id: userInput1._id.toString() });
         expect(mockGetUserDocuments).toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('GET /users - should fail with invalid created query value', async () => {
@@ -106,6 +123,7 @@ describe('Users endpoints', () => {
         expect(response.body.status).toEqual('Failed');
         expect(response.body.error).toEqual('Invalid sorting order');
         expect(mockGetUserDocuments).not.toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 
     test('GET /users - should fail with extra query parameters', async () => {
@@ -116,5 +134,6 @@ describe('Users endpoints', () => {
         expect(response.body.status).toEqual('Failed');
         expect(response.body.error).toMatch(/Unrecognized key\(s\) in object: 'foo'/);
         expect(mockGetUserDocuments).not.toHaveBeenCalled();
+        expect(response.header['x-trace-id']).toBeDefined();
     });
 });

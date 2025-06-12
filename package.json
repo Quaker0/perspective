@@ -1,14 +1,14 @@
 {
     "name": "perspective-backend-test",
     "version": "1.0.0",
-    "description": "Basic setup to for the backend engineer test",
+    "description": "Basic project for an API with MongoDB and Express",
     "main": "index.js",
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "start": "ts-node src/index.ts",
         "test": "set DEBUG=* && jest --testPathPattern=test --coverage"
     },
-    "author": "Christoph Fey",
+    "author": "Christoph Fey + Niclas Bångman",
     "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",

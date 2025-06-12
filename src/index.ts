@@ -1,3 +1,5 @@
+import 'dotenv/config'; // Make sure to load environment variables before any imports
+
 import { app } from './app';
 import { closeUserDatabaseConnection, connectUserDatabase } from './controllers/userController';
 
