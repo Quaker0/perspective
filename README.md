@@ -4,7 +4,7 @@ This project skeleton contains a basic Express setup one endpoint to create a us
 
 ## Setup
 
-1. Add `DB_USER` and `DB_PASSWORD` to the .env file.
+1. Create a `.env` file and add `PORT`, `DB_USER` and `DB_PASSWORD`. The last two are for MongoDB Atlas and are not needed for tests.
 2. Run `npm install`
 
 ## Scripts
